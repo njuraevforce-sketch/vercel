@@ -97,7 +97,7 @@ function findProjectId(): string {
   try {
     const pkgPath = path.join(dir, '.vercel', 'project.json');
     if (!fs.existsSync(pkgPath)) {
-      throw new VercelOidcTokenError('Project.json not found');
+      throw new VercelOidcTokenError('project.json not found');
     }
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
     if (typeof pkg.projectId !== 'string') {
@@ -187,13 +187,13 @@ export async function refreshToken(): Promise<void> {
     const authToken = getVercelCliToken();
     if (!authToken) {
       throw new VercelOidcTokenError(
-        'Failed to refresh OIDC token: login to vercel cli'
+        'Failed to refresh OIDC token: login to Vercel CLI'
       );
     }
     const projectId = findProjectId();
     if (!projectId) {
       throw new VercelOidcTokenError(
-        'Failed to refresh OIDC token: project id not found'
+        'Failed to refresh OIDC token: project ID not found'
       );
     }
     maybeToken = await getVercelOidcToken(authToken, projectId);
